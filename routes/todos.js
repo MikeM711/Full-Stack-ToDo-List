@@ -10,21 +10,19 @@ router.get('/', (req,res) => {
     ToDo.findAll()
         .then(myResult => {
             console.log('SUCCESS!')
-        
-            let toDoList = [];
 
-            for(let i = 0; i < myResult.length; i++){
-                toDoList.push(myResult[i].todo)
-            }
+            /* 
+            Get all To-Do's from the database (myResult), and send it as a parameter in an HTTP Response, more specifically, send it inside a JSON response.
+            */
+            res.json({
+                myResult,
+            });
 
-            res.send(JSON.stringify(toDoList));
         })
         .catch(err => {
             console.log('THIS IS AN ERROR')
             console.log(err)
         })
-
-        //res.send('heyooooo')
 })
 
 module.exports = router

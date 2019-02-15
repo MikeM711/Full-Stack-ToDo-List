@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 
 class AddTodo extends Component {
+
   state = {
     content: ''
   }
+  
   handleChange = (e) => {
     this.setState({
       content: e.target.value
