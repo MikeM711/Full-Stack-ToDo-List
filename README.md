@@ -3,11 +3,7 @@
 
 ## Update Discussion
 
-Front-End: Application receives https://jsonplaceholder.typicode.com/todos, using axios. That data is stored inside of the Redux Store, and thus, displayed client-side.
-
-Back-End: /todos displays JSON, just like JSONPlaceholder
-
-Front/Back is not connected yet
+Front/Back is now connected. Frontend can make requests to the Backend.
 
 ## Currently
 

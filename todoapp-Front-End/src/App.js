@@ -5,18 +5,19 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 
 class App extends Component {
- 
-  // When the component first mounts, cycle through the todos from JSONPlaceholder
-  componentDidMount(){
-    axios.get('https://jsonplaceholder.typicode.com/todos/')
-       .then(res => {
 
-        // Cycle through the first 10 To-Do's
-        for(let i = 0; i <= 10; i++){
-          this.props.addToDoDB(res.data[i])
-        }
-       })
+  componentDidMount() {
+    // Option #1: fetch data using fetch()
+    //   fetch("/todos")
+    //     .then(res => res.json())
+    //     .then(todosDB => console.log(todosDB));
 
+    // Option #2: fetch data using 
+    axios.get('/todos')
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err))
   }
 
   deleteTodo = (id) => {
@@ -28,7 +29,7 @@ class App extends Component {
     this.props.addToDoRedux(todo)
   }
   render() {
-    console.log(this.props.todosRedux)
+    //console.log(this.props.todosRedux)
     return (
       <div className="todo-app container">
         <h1 className="center blue-text">Todo's</h1>
