@@ -3,6 +3,21 @@ const router = express.Router();
 const db = require('../config/database')
 const ToDo = require('../models/ToDoModel')
 
+// We are using GET not a POST
+// When we GET request page /todos/add, we will create a hard-coded post
+router.get('/add', (req,res) => {
+
+    // hard coded
+    let todo = 'Try More PostgreSQL'
+
+    ToDo.create({
+        todo
+     })
+        .then(gig => res.redirect('/todos'))
+        .catch(err => console.log(err))
+
+})
+
 router.get('/', (req,res) => {
 
     //console.log(ToDoModel)
