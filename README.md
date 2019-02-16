@@ -3,7 +3,9 @@
 
 ## Update Discussion
 
-Front/Back is now connected. Frontend can make requests to the Backend.
+- Frontend & Backend is now connected
+  - Frontend can make requests to the Backend.
+- Backend data is logged to console
 
 ## Currently
 
