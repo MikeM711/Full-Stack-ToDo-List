@@ -3,9 +3,7 @@
 
 ## Update Discussion
 
-- Frontend & Backend is now connected
-  - Frontend can make requests to the Backend.
-- Backend data is logged to console
+- To Do's from postgres database now displays on the client-side in the browser, in a To Do List, through React
 
 ## Currently
 

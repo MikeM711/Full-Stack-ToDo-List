@@ -27,10 +27,10 @@ const rootReducer = (state = initState, action) => {
    }
 
   if (action.type === 'ADD_TODO_FROM_DB') {
-
-    // Present results in an object similar to our state
+    
+   // Present results in an object similar to our state
     const todo = {
-      content: action.todo.title,
+      content: action.todo.todo,
       id: action.todo.id,
     }
 

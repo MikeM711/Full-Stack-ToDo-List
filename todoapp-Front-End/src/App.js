@@ -7,15 +7,13 @@ import axios from 'axios'
 class App extends Component {
 
   componentDidMount() {
-    // Option #1: fetch data using fetch()
-    //   fetch("/todos")
-    //     .then(res => res.json())
-    //     .then(todosDB => console.log(todosDB));
 
-    // Option #2: fetch data using 
     axios.get('/todos')
       .then(res => {
-        console.log(res.data);
+        for(let i = 0; i < res.data.allToDos.length; i++){
+          this.props.addToDoDB(res.data.allToDos[i]);
+        }
+
       })
       .catch(err => console.log(err))
   }
