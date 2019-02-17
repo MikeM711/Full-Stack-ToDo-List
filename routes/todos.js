@@ -3,18 +3,19 @@ const router = express.Router();
 const db = require('../config/database')
 const ToDo = require('../models/ToDoModel')
 
-// We are using GET not a POST
-// When we GET request page /todos/add, we will create a hard-coded post
-router.get('/add', (req,res) => {
+// Add a todo with a proper POST request
+router.post('/add', (req,res) => {
 
-    // hard coded
-    let todo = 'Try More PostgreSQL'
+    // req.body is { todo: 'Hello Database!' } - we are receiving this info from React frontend
+    let todo = req.body
 
-    ToDo.create({
-        todo
-     })
-        .then(gig => res.redirect('/todos'))
-        .catch(err => console.log(err))
+    ToDo.create(todo)
+        .then((result) => {
+            res.status(200).json({ data: result.dataValues });
+        })
+        .catch((error) => {
+            res.status(400).json({ error });
+        });
 
 })
 

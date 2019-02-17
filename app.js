@@ -10,6 +10,9 @@ db.authenticate()
 
 const app = express();
 
+// In order to use req.body inside routes > todos.js, use bodyParser inside this application
+app.use(bodyParser.json());
+
 app.get('/', (req,res) => res.send('INDEX'))
 
 //todos routes
