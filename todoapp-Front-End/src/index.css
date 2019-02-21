@@ -14,10 +14,15 @@ body {
 .collection-item{
   background: #fff;
 }
-
+/*
 .collection-item span:hover{
   cursor: pointer;
   text-decoration: line-through;
+}
+*/
+
+.delete-btn{
+  margin-left: 20px
 }
 
 form{
