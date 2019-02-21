@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Todos = ({todos, deleteTodo}) => {
+class Todos extends Component {
 
-  const todoList = todos.length ? (
+  // I can probably make this better...
+  todoList = () => { 
+    const {todos, deleteTodo} = this.props
+    const toDosMap = todos.length ? (
     todos.map(todo => {
       return (
         <div className="collection-item" key={todo.id}>
@@ -13,12 +16,16 @@ const Todos = ({todos, deleteTodo}) => {
   ) : (
     <p className="center">You have no todo's left, yay!</p>
   );
+  return toDosMap
+  }
 
-  return (
+  render() {
+    return (
     <div className="todos collection">
-      {todoList}
+      {/* Is this function OK?*/}
+      {this.todoList()}
     </div>
-  )
+    )}
 }
 
 export default Todos;
