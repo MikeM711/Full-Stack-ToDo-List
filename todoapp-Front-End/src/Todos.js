@@ -1,70 +1,43 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import SingleTodo from './SingleTodo'
+
+/* 
+The Complete list of todos
+Cycles through all SingleTodo components - which hold each todo
+*/
 
 class Todos extends Component {
-  state = {
-    isEditing: false,
-  };
 
-  // PROBLEM: When we click one checkbox, all of them are clicked
-  // We need to click a SINGULAR todo - Create another component
-  handleEditing = (id) => {
-    const { isEditing } = this.state;
-    this.setState({ 
-      isEditing: !isEditing 
-    });
-    console.log('checked! Editing is ' + this.state.isEditing)
+  todoList = () => {
+    const { todos, deleteTodo } = this.props
+    const toDosMap = todos.length ? (
+      todos.map(singleTodo => {
+        /* Returning a key is necessary when we do some form of iteration process
+        'key' property doesn't pass anything into the component, it just makes React happy
+        That's why I passed 'id' with the same value as 'key'
+        */
+        // When the single iteration of .map() is complete, return your values in order to store them, as intended by .map()
+        return (
+          <SingleTodo
+            todo={singleTodo.content}
+            deleteTodo={deleteTodo}
+            key={singleTodo.id}
+            id={singleTodo.id}
+          />
+        )
+      })
+    ) : (
+        <p className="center">You have no todo's left, yay!</p>
+      )
+
+    return toDosMap
   }
 
-  // I can probably make this better...
- todoList = () => {
-   const toDosMap = this.props.todos.length ? (
-   this.props.todos.map(todo => {
-     return (
-       <div className="collection-item" key={todo.id}>
-         <span >{todo.content}</span>
-
-         <form action="#">
-           <p>
-             <label>
-               <input
-                 type="checkbox"
-                 className="filled-in"
-                checked={this.state.isEditing}
-                onChange={() => {this.handleEditing(todo.id) }}
-               />
-               <span>Edit</span>
-             </label>
-             <a
-               className=" red lighten-3 waves-effect waves-light btn-small delete-btn"
-               onClick={() => { this.props.deleteTodo(todo.id) }}>Delete</a>
-           </p>
-
-         </form>
-
-         {/* 
-           <input
-           type="checkbox"
-           name="edit"
-           checked={isEditing}
-           onChange={this.handleEditing}
-           />
-         */}
-        
-       </div>
-     )
-   })
- ) : (
-   <p className="center">You have no todo's left, yay!</p>
- );
- return toDosMap
- }
-
   render() {
-    
     return (
       <div className="todos collection">
+        {/* Initialize the function */}
         {this.todoList()}
-
       </div>
     )
   }

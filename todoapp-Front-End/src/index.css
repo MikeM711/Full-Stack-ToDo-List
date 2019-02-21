@@ -15,11 +15,27 @@ body {
   background: #fff;
 }
 /*
+Below will cause strikethrough on hover
+
 .collection-item span:hover{
   cursor: pointer;
   text-decoration: line-through;
 }
 */
+
+/*
+Below also hooks up to .edit-text
+
+.input-field span {
+  color: black; 
+  margin-right: 50px;
+}
+*/
+
+.edit-text{
+  /* color: black; */
+  margin-right: 50px;
+}
 
 .delete-btn{
   margin-left: 20px
