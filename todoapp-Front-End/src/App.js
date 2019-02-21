@@ -29,7 +29,7 @@ class App extends Component {
     The URL of the frontend MUST EQUAL the URL of the backend, so that both can talk to each other*/
     axios.delete(`/todos/delete/${id}`)
       .then(res => {
-        /* axios counts a "success" as 'getting some res data from the backend' */
+        /* execution enters here when HTTP response has ended*/
         // axios was successful, item has now been added to the database
         // 'res' parameter is not mandatory
         console.log('DB successfully deleted todo ' + JSON.stringify(res))

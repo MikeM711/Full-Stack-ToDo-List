@@ -19,7 +19,7 @@ router.post('/add', (req,res) => {
             {"id":73,"todo":"test","updatedAt":"2019-02-20","createdAt":"2019-02-20"}
             */
 
-            /* Once successfully added to the database: send this database data 'result' to the client, so that we can extract the DB data in the client. Therefore, in the client, we know what happened in the database.
+            /* Once successfully added to the database: send this database data 'result' to the client (similar to res.write() ), so that we can extract the DB data in the client. Therefore, in the client, we know what happened in the database.
 
             What happened in the database? Postgres gave an 'id' and a 'creation'/'update' time.  All of which we can use in the client. 
             
@@ -88,6 +88,8 @@ router.delete('/delete/:id', (req, res) => {
   req.params is a property containing properties mapped to the named route “parameters”. It is used when you want to extract a "param" from the url.
   In this case: req.params only has one object: the 'id'
   */
+  
+  // we can do res.end() in here if we want... But probably best to do it at the end of all of this..
 
   // Destructure id off of req.params
   const { id } = req.params;
@@ -113,6 +115,9 @@ router.delete('/delete/:id', (req, res) => {
       if (result === 1) {
         /* For the HTTP response to be successful, we should must tell the server that the message is complete.
         Like all other responses, end the reponse using res.end(), res.json(), or res.send() - where latter 2 include res.end() */
+
+        // res.write('necessaryString') + res.end() = res.send('necessaryString')
+
         // We can just use res.status(#00).json() for everything
         res.status(200).json({ success: true });
       }
