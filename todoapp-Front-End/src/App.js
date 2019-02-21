@@ -19,8 +19,25 @@ class App extends Component {
   }
 
   deleteTodo = (id) => {
-    this.props.deleteToDoRedux(id)
+
+    /* Execution enters here because the "Todos" component, responsible for the full list, triggers this function in its passed-down props (via onClick of the span tag, that holds the singular "To Do" content) */
+
+    /* First, delete the todo off the database, and when successful,  delete the todo off Redux Store (exactly as if there were no database involved) */
+
+    /* axios.delete does not have a data parameter, you must use a URL to send data to the backend. Use backticks `` and ${} for dynamic strings (in our case, URLs).
     
+    The URL of the frontend MUST EQUAL the URL of the backend, so that both can talk to each other*/
+    axios.delete(`/todos/delete/${id}`)
+      .then(res => {
+        /* axios counts a "success" as 'getting some res data from the backend' */
+        // axios was successful, item has now been added to the database
+        // 'res' parameter is not mandatory
+        console.log('DB successfully deleted todo ' + JSON.stringify(res))
+        /* Just like before without the database - with the help of the parameter 'id' from deleteTodo, initiate the function that dispatches a DELETE action to the Redux Store with the 'id' payload */
+        this.props.deleteToDoRedux(id)
+      })
+      .catch((err) => console.log('hit'))
+      
   }
   
   addTodo = (todo) => {
