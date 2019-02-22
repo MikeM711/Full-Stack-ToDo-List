@@ -26,7 +26,7 @@ Below will cause strikethrough on hover
 /*
 Below also hooks up to .edit-text
 
-.input-field span {
+.edit-field span {
   color: black; 
   margin-right: 50px;
 }

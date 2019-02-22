@@ -9,7 +9,7 @@ Cycles through all SingleTodo components - which hold each todo
 class Todos extends Component {
 
   todoList = () => {
-    const { todos, deleteTodo } = this.props
+    const { todos, deleteTodo, updateTodo } = this.props
     const toDosMap = todos.length ? (
       todos.map(singleTodo => {
         /* Returning a key is necessary when we do some form of iteration process
@@ -17,10 +17,12 @@ class Todos extends Component {
         That's why I passed 'id' with the same value as 'key'
         */
         // When the single iteration of .map() is complete, return your values in order to store them, as intended by .map()
+        // Inside the SingleTodo, we will call the todo content, the 'title'
         return (
           <SingleTodo
-            todo={singleTodo.content}
+            title={singleTodo.content}
             deleteTodo={deleteTodo}
+            updateTodo={updateTodo}
             key={singleTodo.id}
             id={singleTodo.id}
           />

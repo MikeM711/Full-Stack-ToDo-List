@@ -20,6 +20,8 @@ class App extends Component {
 
   deleteTodo = (id) => {
 
+    // To delete a todo, we just need the 'id' of the todo, no 'content'
+
     /* Execution enters here because the "Todos" component, responsible for the full list, triggers this function in its passed-down props (via onClick of the span tag, that holds the singular "To Do" content) */
 
     /* First, delete the todo off the database, and when successful,  delete the todo off Redux Store (exactly as if there were no database involved) */
@@ -41,6 +43,9 @@ class App extends Component {
   }
   
   addTodo = (todo) => {
+
+    // To add a todo, we just need the 'content' of the todo, no 'id'
+
     /* Execution enters here because "AddToDo" component triggers this function in its passed-down props (via onSubmit) */
 
     // First, POST the todo into the database
@@ -55,14 +60,23 @@ class App extends Component {
       todo.content = res.data.data.todo
       this.props.addToDoRedux(todo)
     })
-
   }
+
+  updateTodo = (todo) => {
+    console.log(todo)
+    // To update the todo, we will need 'id' AND 'content'
+  }
+
   render() {
     console.log(this.props.todosRedux) // logs the Redux Store
     return (
       <div className="todo-app container">
         <h1 className="center blue-text">Todo's</h1>
-        <Todos todos={this.props.todosRedux} deleteTodo={this.deleteTodo} />
+        <Todos 
+          todos={this.props.todosRedux} 
+          deleteTodo={this.deleteTodo} 
+          updateTodo={this.updateTodo}
+        />
         <AddTodo addTodo={this.addTodo} />
       </div>
     );
