@@ -114,6 +114,27 @@ class SingleTodo extends Component {
     }
   }
 
+  // Fired when 'Delete' button is clicked
+  /* Send in the particular event interface of the particular event 
+    In this case it's a particular "click" event */
+  handleDelete = (event) => {
+    /* 
+      Use this particular event interface to fire a function that prevents default browser default behavior
+        aka, prevents refresh of page
+      If not used, the page refreshes with the URL '/?#' 
+        Instead of no refresh and '/' - if we used preventDefault()
+    */
+    event.preventDefault();
+
+    /* 
+      Send the 'id' out of the component
+      We use a function attached to the props outside of the component 
+        This property was stated inside the "Todos" Component
+    */
+    const { id } = this.props
+    this.props.deleteTodo(id)
+  }
+
   // render the singular todo to the browser
   render() {
 
@@ -122,7 +143,8 @@ class SingleTodo extends Component {
 
     return (
       <div className="collection-item">
-        {/* the title can be two things:
+
+        {/* the title of the todo can be two things:
       1: Simply the title
       2: A user input 'edit' of the title
       Answer: Ternary Operator to cycle between true/false editing
@@ -157,6 +179,8 @@ class SingleTodo extends Component {
             )
         }
 
+        {/* The two possibilities of HTML on the location of the "Title" of the todo is now taken care of, now create everything else*/}
+
         {/* Boilerplate of Materialize Checkbox */}
         <form action='#'>
           <p>
@@ -183,9 +207,14 @@ class SingleTodo extends Component {
               />
               <span className="edit-text">Edit</span>
             </label>
-            <a
+
+            {/* A button to Delete the todo*/}
+            <button
               className="red lighten-3 waves-effect waves-light btn-small delete-btn"
-              onClick={() => { this.props.deleteTodo(id) }}>Delete</a>
+              onClick= {this.handleDelete }>
+              Delete
+              </button>
+
           </p>
         </form>
 
