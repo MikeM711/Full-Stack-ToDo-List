@@ -62,9 +62,10 @@ class App extends Component {
     })
   }
 
-  updateTodo = (todo) => {
-    console.log(todo)
-    // To update the todo, we will need 'id' AND 'content'
+  updateTodo = (fullTodo) => {
+    // To update the todo to Redux/Database, we will need 'id' AND 'content'
+      // eg: { content: 'sleep a lot', id: 2 }
+    this.props.updateToDoRedux(fullTodo)
   }
 
   render() {
@@ -94,7 +95,8 @@ const mapDispatchToProps = (dispatch) => {
     // todo includes the todo AND the id
     addToDoRedux: (todo) => {dispatch({type:'ADD_TODO', todo: todo})},
     deleteToDoRedux: (id) => {dispatch({type:'DELETE_TODO', id: id })},
-    addToDoDB: (todo) => {dispatch({type: 'ADD_TODO_FROM_DB', todo: todo})}
+    addToDoDB: (todo) => {dispatch({type: 'ADD_TODO_FROM_DB', todo: todo})},
+    updateToDoRedux: (fullTodo) => {dispatch({type: 'UPDATE_TODO', fullTodo: fullTodo})}
   }
 }
 

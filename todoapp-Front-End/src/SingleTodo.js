@@ -107,7 +107,26 @@ class SingleTodo extends Component {
         If 'isEditing' was ONLY inside render(), we can not acquire the 'isEditing' variable
     */
     if (event.key === 'Enter') {
-      this.props.updateTodo(this.state.todo);
+
+      /* 
+      Unfortunately, sending this.state.todo will send:
+        {title: 'todoTitle', id: 'todoId'}
+
+      Our actual state reads data like this:
+        {content: 'todoTitle', id: 'todoId'}
+      */
+
+      const todoInfo = {
+        content: this.state.todo.title,
+        id: this.state.todo.id
+      }
+
+      /* 
+      Now that the input has been properly used, and ENTER is clicked:
+        Send the proper 'todo' information, using updateTodo() to => Todo Component => App Component => dispatched to Redux Store
+      */
+     
+      this.props.updateTodo(todoInfo);
       this.setState({
         isEditing: false,
       });
