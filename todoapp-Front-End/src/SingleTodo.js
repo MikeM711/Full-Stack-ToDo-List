@@ -203,6 +203,10 @@ class SingleTodo extends Component {
         {/* Boilerplate of Materialize Checkbox */}
         <form action='#'>
           <p>
+            {/* input tag is nested inside label - therefore, no need for 'htmlFor' inside label
+            If <label></label> and then <input/>
+              Label NEEDS an 'htmlFor' property to be equal to the 'name' property of the input tag
+            */}
             <label className="edit-field">
               <input
                 type="checkbox"
