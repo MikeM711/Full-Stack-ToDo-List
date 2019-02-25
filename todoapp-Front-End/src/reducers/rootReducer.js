@@ -132,6 +132,10 @@ const rootReducer = (state = initState, action) => {
       4th: Insert the updated item of that id (new content, old 'id' number) using the 3rd param of split()
     */
 
+   /*
+   Because the 'UPDATE_TODO' dispatch uses fullTodo as a property; you will, obviously, be using action.fullTodo, to receive the full payload
+   */
+
    return {
       ...state,
       todos: findAndReplace(action.fullTodo, state),

@@ -55,6 +55,8 @@ class App extends Component {
     .then(res => {
       // Second, add todo to Redux Store
 
+      // res.data = data: {BACKEND STUFF}
+
       // take the todo POST response database data, extract it, and use the id/content and store in the Redux Store
       todo.id = res.data.data.id
       todo.content = res.data.data.todo
@@ -65,7 +67,31 @@ class App extends Component {
   updateTodo = (fullTodo) => {
     // To update the todo to Redux/Database, we will need 'id' AND 'content'
       // eg: { content: 'sleep a lot', id: 2 }
-    this.props.updateToDoRedux(fullTodo)
+    
+    // Axios PUT request
+    axios.put('/todos/put', {
+      todo: fullTodo
+    })
+    .then(res => {
+      // res.data = data: {BACKEND STUFF}
+
+      /* We no longer want to use front-end data:
+        this.props.updateToDoRedux(fullTodo) */
+      /* We WILL use backend data:
+          this.props.updateToDoRedux(res.data)
+        Why is this helpful? 
+        Even though we could still get 'id' and 'content' from the Front-End...
+        The BACKEND will bring us its 'id' and 'content' (added security) PLUS, the ENTIRE database row! (ie: createdAt, updatedAt, and more if you want)
+      */
+
+      // The payload, in the form of the Redux State's todos
+      const backendData = {
+        content: res.data.data.todo,
+        id: res.data.data.id,
+      }
+
+      this.props.updateToDoRedux(backendData)
+    })
   }
 
   render() {

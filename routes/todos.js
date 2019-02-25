@@ -5,6 +5,89 @@ const ToDo = require('../models/ToDoModel')
 
 // express.Router() = A "mini app"
 
+// Edit a todo with a PUT request
+router.put('/put', (req, res) => {
+
+    /* Just like POST, use req.body to get the 2nd parameter (the data object) of axios
+        It holds the 'id' and 'content' - The {todo: fullTodo} 2nd parameter of axios in the Frontend
+    */
+    const { id, content, } = req.body.todo
+
+    // The way the database is structured, the 'todo' property has the todo information, make sure to keep it that way
+    const updateTodo = {
+        todo: content
+    };
+
+    // Example: updateTodo = {todo: "Hard-Coded - Database is updated"},
+
+    // update() method: Update the database using the Model in the location of the 'id' that was passed in from the frontend
+    // Syntax: Model.update(dataObj,optionsObj)
+    ToDo.update(
+        updateTodo,
+        {
+            where: { id },
+        })
+        // If all goes to plan, the database has now been updated
+
+        // GOAL: Send the newly updated data back to the Front-End
+
+        // Option #1 - Quicker, but can only be used with POSTGRES:
+            /* For postgres, we can use{ returning: true, where: { id } }
+            As the 2nd param of update()
+            */
+
+        /* Option #2 - Longer, but more universal method:
+            Again, remember, the database has already been updated
+            We will be using .update()'s completed promise to do a 'safety check' 
+            And we will use .findOne()'s completed promise to send data to the frontend
+        */
+
+        // The .update() method returns a promise with an integer parameter - how many rows are updated
+        .then(([result]) => {
+            /* if one row is updated, that means we are on the right track
+                Basically, further security for our application - more constraints
+            */
+            if (result === 1) {
+                // Again, it is not mandatory to know that result = 1
+                // findOne() method: Search for a certain attribute (the 'id' of the object that came from the Front-End) and return a promise with the data of that item as a parameter
+                return ToDo.findOne({
+                    where: { id },
+                });
+            }
+        })
+        /* this .findOne() promise returns data
+            More specifically: returns the data of the 'id' variable that the backend received from the frontend
+        */
+        .then((data) => {
+            // Send the data to the frontend and end the HTTP request
+            /* Note, we are sending the data encapsulated in a property (not mandatory)
+                We could probably just say:
+                    res.status(200).json({ data.dataValues });
+            */
+            res.status(200).json({ data: data.dataValues });
+        })
+
+        /*
+        Option #2: the 2nd returning param - ONLY FOR POSTGRES
+
+        Todo.update() 2nd param: { returning: true, where: { id } }
+
+        .then(([rowsUpdate, [updatedTodo]]) => {
+
+            // We now have access to a 2nd parameter from the returned Promise! - updatedTodo 
+            // Create an if statement to check number of rows udpated as a 'safety check'
+
+            res.json(updatedTodo)
+        }) 
+        */
+        
+        .catch((error) => {
+            console.log('ERROR')
+            res.status(400).json({ error });
+        });
+})
+
+
 // Add a todo with a proper POST request
 router.post('/add', (req,res) => {
     /* Execution is here because of client: axios.post('/todos/add', sentContent) */
@@ -26,6 +109,7 @@ router.post('/add', (req,res) => {
             Most importantly - we can have the postgres DB id match Redux Store id, for easy 'todo' deletion
             
             What does res.json() ALSO do? It ends the response like res.end() - we must end the response for every response we do */
+
             res.status(200).json({ data: result.dataValues });
         })
         .catch((error) => {
