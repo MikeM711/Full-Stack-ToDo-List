@@ -133,7 +133,7 @@ const rootReducer = (state = initState, action) => {
     */
 
    /*
-   Because the 'UPDATE_TODO' dispatch uses fullTodo as a property; you will, obviously, be using action.fullTodo, to receive the full payload
+   Because the 'UPDATE_TODO' dispatch, inside App.js , uses fullTodo as a property; you will, obviously, be using action.fullTodo, to receive the full payload
    */
 
    return {
