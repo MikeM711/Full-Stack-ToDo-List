@@ -44,3 +44,7 @@ Below also hooks up to .edit-text
 form{
   margin: 20px 10px;
 }
+
+.home-nav-link {
+  margin-left: 20px
+}
