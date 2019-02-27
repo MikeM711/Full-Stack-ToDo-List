@@ -8,8 +8,11 @@ import axios from 'axios'
 class TodoList extends Component {
 
   componentDidMount() {
-
+    
     // When component mounts, display all todos from Database + cycle through them if successful
+
+    /* Future: have this axios GET request sent to Redux only once
+    So that we don't have to keep refreshing the page to get the data */
     axios.get('/todos')
       .then(res => {
         for(let i = 0; i < res.data.allToDos.length; i++){
@@ -101,7 +104,7 @@ class TodoList extends Component {
 			<div className="todo-List">
 				<Navbar />
 				<div className="todo-app container">
-					<h1 className="center blue-text">Todo's</h1>
+					<h1 className="todo-list-title center blue-text">Todo List</h1>
 					<Todos
 						todos={this.props.todosRedux}
 						deleteTodo={this.deleteTodo}

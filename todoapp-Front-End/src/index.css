@@ -48,3 +48,23 @@ form{
 .home-nav-link {
   margin-left: 20px
 }
+
+.password-field {
+  margin-top: -20px
+}
+
+.register-form {
+  margin-top: 30px;
+}
+
+.login-form {
+  margin-top: 30px;
+}
+
+.not-found-card {
+  margin-top: 30px;
+}
+
+.todo-list-title {
+  margin-top: 0px;
+}
